@@ -1,0 +1,37 @@
+*{
+    box-sizing: border-box;
+}
+
+#login{
+    background: url(/clothes.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    height: 100vh;
+    
+}
+
+.check{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    
+    margin-left: 12px;
+    margin-top: 5px;
+}
+
+.login-btn{
+    padding: 14px;
+color: rgb(38, 38, 39);
+background-color: rgb(255, 255, 255);
+font-family: inherit;
+text-decoration: none;
+border-radius: 2px;
+vertical-align: middle;
+appearance: none;
+cursor: pointer;
+transition: background-color 0.2s ease 0s;
+border: 1px solid;
+margin: 15px;
+}

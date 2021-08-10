@@ -1,0 +1,58 @@
+*{
+    box-sizing: border-box;
+}
+
+#landing{
+    background: url(/clothes.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+}
+.login {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    padding-right: 8px;
+    margin-left: auto;
+}
+
+.btn{
+    display: inline-block;
+width: auto;
+font-size: 12px;
+line-height: 14px;
+height: 28px;
+padding: 8px 12px 6px;
+color: rgb(38, 38, 39);
+background-color: rgb(255, 255, 255);
+font-family: inherit;
+text-decoration: none;
+border-radius: 2px;
+vertical-align: middle;
+appearance: none;
+cursor: pointer;
+transition: background-color 0.2s ease 0s;
+border: 1px solid;
+}
+
+#registration{
+display: flex;
+flex-direction: column;
+gap: 20px;
+padding-right: 180px;
+padding-top: 50px;
+}
+
+.inputs{
+    border: 25%;
+}
+
+.button{
+    width: 200px;
+    background-color: blueviolet;
+}
