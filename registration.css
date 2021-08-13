@@ -1,9 +1,10 @@
-*{
+* {
     box-sizing: border-box;
   }
   body {
     border-radius: 39px;
     background: #e4e9f1;
+    padding: 5% 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,11 +39,8 @@
   .button {
     padding: 5px;
     background-color: #fff;
-    margin-bottom: 36px;
-    width: 52%;
-    margin-left: 102px;
-}
-
+    margin-bottom: 10px;
+  }
   
   .register-link {
     text-decoration: none;
@@ -64,5 +62,3 @@
     justify-content: space-around;
     align-items: center;
   }
-  
-  

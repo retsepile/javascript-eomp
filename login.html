@@ -1,21 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="./login.css">
-</head>
-<body>
-    <div id="login">
-        <h1>Log In</h1>
-        <p>Who is this that I see back, Login so we both can be happy</p>
-        <form action="">
-            <input type="text" placeholder="Username" name="username" class="check" required>
-            <input type="text" placeholder="Password" name="password" class="check" required>
-            <button class="login-btn">Login</button>
-        </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home-Page</title>
+    <link rel="stylesheet" href="./login.css" />
+    
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="./add_new_product.html"> Add product to sell</a></li>
+      </ul>
+    </nav>
+
+    <div class="body-container">
+      <div class="container">
+        <div class="form-wrapper">
+          <img src="" alt="" />
+          <h1 class="heading">Login/Register</h1>
+          <div class="form-box">
+            <form
+              id="contact-form"
+              
+              method="POST"
+            >
+              <!--For the email label-->
+              <div class="form-group">
+                <label class="from-labels" for="username">Username</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  name="user_email"
+                  id="auth_username"
+                  
+                  required
+                />
+              </div>
+              <!--For the contact label-->
+              <div class="form-group">
+                <label class="from-labels" for="contact">Password</label>
+                <input
+                  class="form-input"
+                  type="password"
+                  name="password"
+                  id="auth_password"
+                  required
+                />
+              </div>
+
+              <!-- The submit button-->
+              <div class="buttons-flex">
+                <button class="button" onclick="event.preventDefault(), login()"  type="submit">
+                  login
+                </button>
+
+                <a class="register-link" href="./registration.html">register</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+    <script src="./login.js"></script>
+  </body>
 </html>
