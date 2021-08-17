@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <script src="./login.js"></script>
+    <link rel="stylesheet" href="/product.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul class="navbar-content">
+        <li><a href="./login.html">Home</a></li>
+        <li><a href="./add_new_product.html"> Add product to sell</a></li>
+        <li><a href="./delete.html">Delete product</a></li>
+      </ul>
+    </nav>
+    <div id="filters">
+      <form onsubmit="event.preventDefault(); searchForProducts()">
+        <input type="text" required id="searchTerm" />
+        <button type="submit" class="search">SEARCH</button>
+      </form>
+      <button onclick="getData()" class="clear-btn">CLEAR CART</button>
+    </div>
+    <div id="products-container"></div>
+    <div id="cart"><p>hello</p></div>
+    <button onclick="toggleCart()" id="cart-button">CART</button>
+  </body>
+</html>

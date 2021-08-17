@@ -2,7 +2,7 @@ let products = [];
 let cart = [];
 
 function getData() {
-  fetch("https://calm-reef-04752.herokuapp.com/get-Point_of_Sales/")
+  fetch("https://calm-reef-04752.herokuapp.com/get-Point-Of-Sale/")
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -20,15 +20,14 @@ function make_products(products) {
     products.data.forEach((product) => {
       product_container.innerHTML += `
         <div class = "products">
-            <img src="${product.image}" class = "product-image">
+            <img src="${product.images}" class = "product-pictures">
             <div class = "product-content"> 
-                <h4 class = "product-title"> ${product.product_name}</h4>
+                <h4 class = "product-heading"> ${product.product_name}</h4>
                 <p class = "product-description"> ${product.description}</p>
-                <p class = "product-price">R${product.price} </p>
+                <p class = "product-price">${product.price} </p>
                 <button onclick="addToCart(${product.id})">Add to Cart</button>
-            
+                <button onclick="deleteProduct(${product.id})"> Delete product</button>
             </div>
-            
         </div>
         `;
     });
@@ -36,12 +35,13 @@ function make_products(products) {
     products.data.forEach((product) => {
       product_container.innerHTML += `
         <div class = "products">
-            <img src="${product.image}" class = "product-image">
+            <img src="${product.images}" class = "product-pictures">
             <div class = "product-content"> 
-                <h4 class = "product-title"> ${product.product_name}</h4>
+                <h4 class = "product-heading"> ${product.product_name}</h4>
                 <p class = "product-description"> ${product.description}</p>
-                <p class = "product-price">R${product.price} </p>
+                <p class = "product-price">${product.price} </p>
                 <button onclick="addToCart(${product.id})">Add to Cart</button>
+                <button onclick="deleteProduct(${product.id})"> Delete product</button>
             
             </div>
             
@@ -58,20 +58,20 @@ function renderCart(cartItems) {
     cartItems.map((cartItem) => {
       cartContainer.innerHTML += `
       <div class = "products">
-            <img src="${cartItems.image}" class = "product-image">
+            <img src="${cartItems.image}" class = "product-pictures">
             <div class = "product-content"> 
-                <h4 class = "product-title"> ${cartItem.product_name}</h4>
+                <h4 class = "product-heading"> ${cartItem.product_name}</h4>
                 <p class = "product-description"> ${cartItems.description}</p>
-                <p class = "product-price">R${cartItems.price} </p>
+                <p class = "product-price">${product.price} </p>
+                <button onclick="addToCart(${product.id})">Add to Cart</button>
+                <button onclick="deleteProduct(${product.id})"> Delete product</button>
             </div>
-            
         </div>
       
       
       `;
-      
     });
-    let totalPrice = cartItems.reduce((total, item) => total + item.price)
+    let totalPrice = cartItems.reduce((total, item) => total + item.price);
   } else {
     cartContainer.innerHTML = "<h2> No items in cart</h2>";
   }
@@ -82,9 +82,51 @@ function addToCart(id) {
   let product = products.data.find((item) => {
     return item.id == id;
   });
-  console.log(product);
+
   cart.push(product);
+  renderCart(cart);
+}
+
+function deleteProduct(id1) {
+  let product = products.data.find((item) => {
+    return item.id == id1;
+  });
+  let prod_id = product.id;
+  console.log(prod_id);
+
+  fetch("https://calm-reef-04752.herokuapp.com/delete-products", {
+    method: "POST",
+    body: JSON.stringify({
+      id: prod_id,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data["message"] == "Product post deleted successfully.") {
+        alert("Deleted succesfully");
+      } else {
+        alert("did not work");
+      }
+    });
+
+  console.log(product);
   console.log(cart);
+}
+
+function removeItem(id) {
+  let product = products.data.find((item) => {
+    return item.id == id;
+  });
+  //console.log(product);
+
+  cart.splice(
+    cart.findIndex((a) => a.id === product.id),
+    1
+  );
   renderCart(cart);
 }
 
@@ -127,53 +169,114 @@ function login() {
     });
 }
 
-//
-
-function previewFile() {
-  image = document.querySelector(".imageup");
-  const file = document.querySelector("#image").files[0];
-  const reader = new FileReader();
-
-  reader.addEventListener(
-    "load",
-    function () {
-      // convert image file to base64 string
-      image.src = reader.result;
+function register() {
+  fetch("https://calm-reef-04752.herokuapp.com/user-registration/", {
+    method: "POST",
+    body: JSON.stringify({
+      first_name: document.getElementById("first_name").value,
+      last_name: document.getElementById("last_name").value,
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value,
+      address: document.getElementById("address").value,
+      phone_number: document.getElementById("phone_number").value,
+      user_email: document.getElementById("user_email").value,
+    }),
+    headers: {
+      "Content-type": "application/json",
     },
-    false
-  );
-
-  if (file) {
-    reader.readAsDataURL(file);
-    console.log(reader.readAsDataURL(file));
-  }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data["message"] == "success") {
+        alert("Registered successfully!, please log in.");
+        window.location.href = "./index.html";
+      } else {
+        alert("Please enter correct information");
+      }
+    });
 }
 
+
 function addtocatalogue() {
-  // console.log({
-  //     "product_id": document.getElementById("aid").value,
-  //         "product_name": document.getElementById("aname").value,
-  //         "product_type": document.getElementById("atype").value,
-  //         "product_quantity": document.getElementById("aquantity").value,
-  //         "product_price": document.getElementById("aprice").value,
-  //         "product_image": document.getElementById("aimage").files[0],}
-  // )
-  fetch(`https://calm-reef-04752.herokuapp.com/create-products/`, {
+  fetch("https://calm-reef-04752.herokuapp.com/create-products/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `jwt ${mystorage.getItem("jwt-token")}`,
     },
     body: JSON.stringify({
-      prod_name: document.getElementById("prod_name").value,
+      product_name: document.getElementById("product_name").value,
       price: document.getElementById("price").value,
       description: document.getElementById("description").value,
-      image: document.getElementById("image").value,
+      images: document.getElementById("images").value,
     }),
   })
     .then((response) => response.json)
     .then((data) => {
       console.log(data);
       console.log("success");
+      if (data["description"] == "Product added succesfully") {
+        alert("product added successfuly");
+        window.location.href = "./products.html";
+      } else {
+        alert("did not add!, please make sure the information is correct.");
+        window.location.href = "./products.html";
+      }
     });
 }
+
+// Cart
+
+function toggleCart() {
+  document.querySelector("#cart").classList.toggle("active");
+}
+
+function userInfo() {
+  firstname = document.querySelector("#first_name").value;
+  localStorage.setItem("Firstname", JSON.stringify(firstname));
+  lastname = document.querySelector("#last_name").value;
+  localStorage.setItem("Lastname", JSON.stringify(lastname));
+  username = document.querySelector("#username").value;
+  localStorage.setItem("Username", JSON.stringify(username));
+  password = document.querySelector("#password").value;
+  localStorage.setItem("Password", JSON.stringify(password));
+  address = document.querySelector("#address").value;
+  localStorage.setItem("Address", JSON.stringify(address));
+  lastname = document.querySelector("#last_name").value;
+  localStorage.setItem("Lastname", JSON.stringify(lastname));
+  phone_number = document.querySelector("#phone_number").value;
+  localStorage.setItem("Phonenumber", JSON.stringify(phone_number));
+  user_email = document.querySelector("#user_email").value;
+  localStorage.setItem("email", JSON.stringify(user_email));
+
+  user_log = document.querySelector("#auth_username").value;
+  
+
+  var i;
+  console.log("local storage");
+  for (i = 0; i < localStorage.length; i++) {
+    console.log(
+      localStorage.key(i) +
+        "=[" +
+        localStorage.getItem(localStorage.key(i)) +
+        "]"
+    );
+  }
+  console.log(localStorage);
+}
+userInfo();
+
+function viewUserInfo() {}
+
+// fetch users
+
+function userProfile() {
+  fetch("https://calm-reef-04752.herokuapp.com/get-users/")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+userProfile();
+
