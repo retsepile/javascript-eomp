@@ -42,7 +42,7 @@
 }
 
 /* cart */
-#cart {
+#shopping-cart {
   position: fixed;
   top: 0;
   left: 100%;
@@ -54,6 +54,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  font-size: 25px;
   
 }
 

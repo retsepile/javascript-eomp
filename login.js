@@ -20,14 +20,15 @@ function make_products(products) {
     products.data.forEach((product) => {
       product_container.innerHTML += `
         <div class = "products">
-            <img src="${product.images}" class = "product-pictures">
+            <img src="${product.images}" class = "product-images">
             <div class = "product-content"> 
                 <h4 class = "product-heading"> ${product.product_name}</h4>
                 <p class = "product-description"> ${product.description}</p>
                 <p class = "product-price">${product.price} </p>
                 <button onclick="addToCart(${product.id})">Add to Cart</button>
-                <button onclick="deleteProduct(${product.id})"> Delete product</button>
+            
             </div>
+            
         </div>
         `;
     });
@@ -35,14 +36,13 @@ function make_products(products) {
     products.data.forEach((product) => {
       product_container.innerHTML += `
         <div class = "products">
-            <img src="${product.images}" class = "product-pictures">
+            <img src="${product.images}" class = "product-image">
             <div class = "product-content"> 
                 <h4 class = "product-heading"> ${product.product_name}</h4>
                 <p class = "product-description"> ${product.description}</p>
                 <p class = "product-price">${product.price} </p>
                 <button onclick="addToCart(${product.id})">Add to Cart</button>
                 <button onclick="deleteProduct(${product.id})"> Delete product</button>
-            
             </div>
             
         </div>
@@ -52,26 +52,27 @@ function make_products(products) {
 }
 
 function renderCart(cartItems) {
-  let cartContainer = document.querySelector("#cart");
+  let cartContainer = document.querySelector("#shopping-cart");
   cartContainer.innerHTML = "";
   if (cartItems.length > 0) {
     cartItems.map((cartItem) => {
       cartContainer.innerHTML += `
       <div class = "products">
-            <img src="${cartItems.image}" class = "product-pictures">
+            <img src="${cartItem.images}" class = "product-image">
             <div class = "product-content"> 
                 <h4 class = "product-heading"> ${cartItem.product_name}</h4>
-                <p class = "product-description"> ${cartItems.description}</p>
-                <p class = "product-price">${product.price} </p>
-                <button onclick="addToCart(${product.id})">Add to Cart</button>
-                <button onclick="deleteProduct(${product.id})"> Delete product</button>
+                <p class = "product-description"> ${cartItem.description}</p>
+                <p class = "product-price">${cartItem.price} </p>
+                <button class ="revome_cart" onclick="removeItem(${cartItem.id})">Remove item</button>
             </div>
+            
         </div>
       
       
       `;
     });
-    let totalPrice = cartItems.reduce((total, item) => total + item.price);
+    let totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+    cartContainer.innerHTML += `<h3> Your total is: ${totalPrice} </h3>`;
   } else {
     cartContainer.innerHTML = "<h2> No items in cart</h2>";
   }
@@ -86,6 +87,7 @@ function addToCart(id) {
   cart.push(product);
   renderCart(cart);
 }
+
 
 function deleteProduct(id1) {
   let product = products.data.find((item) => {
@@ -229,7 +231,7 @@ function addtocatalogue() {
 // Cart
 
 function toggleCart() {
-  document.querySelector("#cart").classList.toggle("active");
+  document.querySelector("#shopping-cart").classList.toggle("active");
 }
 
 function userInfo() {
